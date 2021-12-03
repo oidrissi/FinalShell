@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 21:56:59 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/12/03 07:57:14 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/12/03 10:18:37 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char	**new_split(char *s, char d)
 	char	*b;
 	int		i;
 	int		len;
-	// static int save;
+
 	ret = NULL;
 	i = 0;
 	len = ft_strlen(s);
@@ -145,16 +145,6 @@ char	**new_split(char *s, char d)
 		i++;
 		free(b);
 	}
-	//ret[i] = NULL;
-	// i = 0;
-	// while (ret[i])
-	// {
-	// 	printf("|%s|\n", ret[i]);
-	// 	i++;
-	// }
-	// if (save != 0)
-	// 	exit(0);
-	// save++;
-	// free(s);
+	free(s);
 	return (ret);
 }

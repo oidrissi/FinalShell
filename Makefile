@@ -13,7 +13,7 @@
 CC = gcc
 LDFLAGS= -L /Users/$(USER)/goinfre/$(USER)/.brew/opt/readline/lib
 CPPFLAGS= -I /Users/$(USER)/goinfre/$(USER)/.brew/opt/readline/include
-READLINE = -lreadline -fsanitize=address -g $(LDFLAGS) $(CPPFLAGS)
+READLINE = -lreadline -g $(LDFLAGS) $(CPPFLAGS)
 FLAGS = $(READLINE)
 NAME = hell420
 

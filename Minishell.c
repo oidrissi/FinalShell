@@ -12,39 +12,37 @@
 
 #include "minishell.h"
 
-void	free_g_sh_args()
+void	free_split(char **s)
 {
-	t_cmd *cmd;
-	int i;
-	
-	cmd = g_sh;
-	while(cmd)
+	int	i;
+
+	i = -1;
+	while (s[++i])
 	{
-		i  = -1;
-		while(cmd->args[++i])
-	 		free(cmd->args[i]);
-		free(cmd->args);
-		cmd = cmd->next;
+		// printf("im in 2\n");
+		free(s[i]);
 	}
+	free(s);
 }
 
 void	free_g_sh()
 {
 	t_cmd *tmp;
-	t_red *tmp2;
-	
-	tmp = g_sh;
-	while(tmp)
+	t_red *red;
+
+	while(g_sh)
 	{
-		// tmp2 = tmp->red;
-		// while(tmp2)
-		// {
-		// 	tmp2 = tmp2->next;
-		// 	free(tmp2);
-		// }
-		free_g_sh_args();
-		tmp = tmp->next;
-		free(tmp);
+		while(g_sh->red)
+		{
+			red = g_sh->red->next;
+			free(g_sh->red->name);
+			free(g_sh->red);
+			g_sh->red = red;
+		}
+		free_split(g_sh->args);
+		tmp = g_sh->next;
+		free(g_sh);
+		g_sh = tmp;
 	}
 }
 
@@ -71,13 +69,9 @@ void	boucle(char *line, char **env, int exit_status)
 			continue ;
 		if (line == NULL || !*line)
 				continue ;
-		g_sh = fill_sh(line, exit_status, env);
+		fill_sh(line, exit_status, env);
 		execute_command(g_sh, &exit_status, &env);
-		// free(line);
-		// free_g_sh();
-		free(g_sh);
-		g_sh =NULL;
-		// while (1);
+		free_g_sh();
 	}
 }
 
@@ -94,6 +88,6 @@ int main(int ac, char **av, char **env)
 	signal(SIGINT, handlesig);
 	signal(SIGQUIT, SIG_IGN);
 	boucle(line, env, exit_status);
-	free(line);
+	// free(line);
 	return (0);
 }

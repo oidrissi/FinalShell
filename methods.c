@@ -18,8 +18,6 @@ t_cmd	*ft_lstnew(char **args, t_red *red)
 	t_cmd	*new;
 
 	new = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!new)
-		return (NULL);
 	new->args = args;
 	new->red = red;
 	new->prev = NULL;
